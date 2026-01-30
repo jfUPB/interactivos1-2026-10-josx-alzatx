@@ -40,6 +40,8 @@ R/ Escencialmente el was_Pressed() se usa para leer acciones discretas (no muy c
 
 Finalización actividad 4
 
+## Bitácora de aplicación 
+
 ### Actividad 5
 
 El programa de p5.js.
@@ -145,20 +147,95 @@ R/ Inicialmente creamos un programa en micro:bit Python con el cual se conecta e
 
 Finalización actividad 5
 
+## Bitácora de reflexión
+
 ### Actividad 6
 
 Explica de que manera funciona el sistema fisico.
 
-R/ Primero en la aplicación de micro:bit Python, definimos la información que va a ser enviada del micro bit al computador para que este pueda asignarle funciones.
+R/ El sistema de microbit crea las funciones y luego en p5.js se crea el cuadrado que cambia de color en función de si el botón izquierdo es presionado o no. 
 
-Ahora por la parte de p5.js, iniciarmente se crea un background, analiza que el microbit este configurad para comenzar a recibir la información, ya cuando el sistema detecta todo, se crea el cuadrado y con los el boton izquierdo del microbit el cual al ser pulsado el cuadrado que se encuentra en la pantalla se cambia de verde a rojo pero si no detecta que el boton esta siendo presionado el cuadrado conserva su color inicial.
+Explicación de js
+
+R/ Ahora por la parte de p5.js, inicialmente se crea un background, analiza que el microbit este configurado para comenzar a recibir la información, ya cuando el sistema detecta todo, se crea el cuadrado y con el boton izquierdo del microbit al ser pulsado el cuadrado que se encuentra en la pantalla se cambia de color verde a color rojo pero si no detecta que el boton esta siendo presionado el cuadrado conserva su color inicial (verde).
+
+programa de js
+
+```js
+
+  let port;
+  let connectBtn;
+  let connectionInitialized = false;
+
+  function setup() {
+    createCanvas(400, 400);
+    background(220);
+    port = createSerial();
+    connectBtn = createButton("Connect to micro:bit");
+    connectBtn.position(80, 300);
+    connectBtn.mousePressed(connectBtnClick);
+  }
+
+  function draw() {
+    background(220);
+
+    if (port.opened() && !connectionInitialized) {
+      port.clear();
+      connectionInitialized = true;
+    }
+
+    if (port.availableBytes() > 0) {
+      let dataRx = port.read(1);
+      if (dataRx == "A") {
+        fill("red");
+      } else if (dataRx == "N") {
+        fill("green");
+      }
+    }
+
+    rectMode(CENTER);
+    rect(width / 2, height / 2, 50, 50);
+
+    if (!port.opened()) {
+      connectBtn.html("Connect to micro:bit");
+    } else {
+      connectBtn.html("Disconnect");
+    }
+  }
+
+  function connectBtnClick() {
+    if (!port.opened()) {
+      port.open("MicroPython", 115200);
+      connectionInitialized = false;
+    } else {
+      port.close();
+    }
+  }
+
+```
+
+programa de Python
+
+Explicación del codigo Python
+
+R/ Aca unicamente importamos el microbit y le creamos un valor que represente si los botones de este estan siendo oprimidos. Asignandose un valor "A" al ser presionado y un valor "N" al no recibir ninguna acción.
+
+```py
+
+from microbit import *
+
+uart.init(baudrate=115200)
+
+while True:
+
+    if button_a.is_pressed():
+        uart.write('A')
+    else:
+        uart.write('N')
+
+    sleep(100)
+
+```
 
 Finalización actividad 6
-
-## Bitácora de aplicación 
-
-
-
-## Bitácora de reflexión
-
 
