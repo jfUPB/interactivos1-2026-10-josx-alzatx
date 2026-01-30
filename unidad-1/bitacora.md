@@ -145,9 +145,20 @@ R/ Inicialmente creamos un programa en micro:bit Python con el cual se conecta e
 
 Finalización actividad 5
 
+### Actividad 6
+
+Explica de que manera funciona el sistema fisico.
+
+R/ Primero en la aplicación de micro:bit Python, definimos la información que va a ser enviada del micro bit al computador para que este pueda asignarle funciones.
+
+Ahora por la parte de p5.js, iniciarmente se crea un background, analiza que el microbit este configurad para comenzar a recibir la información, ya cuando el sistema detecta todo, se crea el cuadrado y con los el boton izquierdo del microbit el cual al ser pulsado el cuadrado que se encuentra en la pantalla se cambia de verde a rojo pero si no detecta que el boton esta siendo presionado el cuadrado conserva su color inicial.
+
+Finalización actividad 6
+
 ## Bitácora de aplicación 
 
 
 
 ## Bitácora de reflexión
+
 
