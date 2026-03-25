@@ -22,5 +22,15 @@ Si xValue=500, yValue=524, aState=True, bState=False, ¿cómo se vería el paque
 
 ## Bitácora de aplicación 
 
+### Actividad 2 ###
+
+¿como fue mi proceso para realizar la actividad?
+
+R/ A la hora del proceso, la principal complicacion que tuve fue a la hora de el constructor. Debido a que cometia errores a la hora de nombrar las clases y cuando iban a ser llamadas no se llamaban correctamente. En otras ocasiones se me olvidaba cambiar la información del micro:bit Python y me asustaba porque crei que se me habia dañado el trabajo 🥹. Pero en general se me resulto facil de comprender debido a que su funcionamiento era relativamente similar al trabajo anterior solo poniendo atención en clase y revisando las maneras en las que el profe documentaba los datos binarios, logre finalizar.
+
+Errores del checksum y pruebas de como recibe los datos:
+
+<img width="437" height="111" alt="image" src="https://github.com/user-attachments/assets/5a29bd85-8e13-45dd-9f70-f9a77bc011f7" />
+
 
 ## Bitácora de reflexión
