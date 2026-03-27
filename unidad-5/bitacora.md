@@ -212,4 +212,7 @@ Ejemplos que usaría el protocolo ASCII:
 
 4. Actualiza el diagrama de flujo de datos de la Unidad 4 para reflejar el protocolo binario. ¿Qué componentes cambiaron? ¿Qué componentes permanecieron intactos?
 
-R/ 
+R/ Permanecio intacto en su mayoria debido a que ya tenia agregado el adapter del binario. Pero le agregue en rojo para que se distinga mas la forma en la que manejan los datos. 
+
+<img width="1196" height="682" alt="image" src="https://github.com/user-attachments/assets/d916f679-2201-4ecc-91df-43f2535e2a25" />
+
