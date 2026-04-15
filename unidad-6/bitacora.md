@@ -16,7 +16,7 @@ R/ Porque para los sistemas audiovisuales el cuándo es tan importante como el q
 
 R/ Lo que se conserva de las unidades anteriores es la forma en la que se procesa la información, debido a que al quitarse los adapters pero al usar la otra pagina el servidor va a seguir ejecutandose de la misma manera.
 
-### Finalización Actividad 1 Paso 0 ###
+### Finalización Actividad 1: Paso 0 ###
 
 ### Paso 1 ###
 
@@ -33,7 +33,7 @@ R/ Necesitaria detectar:
 --  Que tanto tiempo dura este sonido
 --  Cuanto dura la reproducción del sonido
 
-### Finalización Actividad 1 Paso 1 ###
+### Finalización Actividad 1: Paso 1 ###
 
 ### Paso 2 ###
 
@@ -45,7 +45,7 @@ R/ La cola de eventos ayuda a que los eventos se realicen en el momento que debe
 
 R/ Porque el bridge unicamente esta ahi para enviar los mensajes de un lado para el otro, por lo tanto definir en que momentos se ejecuta el mensaje necesitamos de otra parte que se encargue de los eventos en general que constituyen al programa. Gracias a que esta separado es mucho más facil manejar el programa porque no queda con una sobrecarga de trabajo el bridge.
 
-### Finalización Actividad 1 Paso 2 ###
+### Finalización Actividad 1: Paso 2 ###
 
 ### Paso 3 ###
 
@@ -57,7 +57,7 @@ R/ El adapter en la unidad 4 usaba un protocolo ASCII para traducir toda la info
 
 R/ Ahora es necesario un adapter que pueda recibir los datos que mencione anteriormente de Strudel (Duracion, tiempo, cuando inicia, que suena) y que los traduzca a un lenguaje que el sistema pueda interpretar y ejecutarlos en el sistema audiovisual.
 
-### Finalización Actividad 1 Paso 3 ###
+### Finalización Actividad 1: Paso 3 ###
 
 ## Bitácora de aplicación 
 
