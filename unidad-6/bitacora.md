@@ -2,7 +2,7 @@
 
 ## Bitácora de proceso de aprendizaje
 
-## Actividad 1 ##
+## Actividad 1 
 
 - ¿Cuál es la diferencia entre recibir un mensaje y ejecutarlo?
 
@@ -61,31 +61,37 @@ R/ Ahora es necesario un adapter que pueda recibir los datos que mencione anteri
 
 ## Bitácora de aplicación 
 
-### Actividad 2 ###
+### Actividad 2 
 
 - ¿Cómo configuraste Strudel para emitir eventos?
 
-R/
+R/ Para que el Strudel emita los eventos, converti toda la infomarción enviada por el Strudel en una combinación de datos que el adapter traduce a un lenguaje que pueda interpretar el sistema y reaccionar a estos en tiempo real, tambien le agregue el timestamp para que pueda saber en que momento ocurre.
 
 - ¿Qué estructura final de mensaje decidiste usar?
 
-R/
+R/ Primero recibe el mensaje y confirma que tenga un sonido y un timestamp, y ya luego guarda el resto de datos del sonido para que se reproduzca de la manera que debe.
 
 - ¿Cómo conectaste bridgeClient.js, FSMTask, updateLogic y drawRunning?
 
-R/
+R/ - 1. Primero el Strudel envia los datos al adapter.
+   - 2. Luego el adapter traduce los datos y los envia en el lenguaje que entiende al bridgeServer (parametros).
+   - 3. El bridgeServer envia los datos ya verificados al cliente.
+   - 4. Recibe el mensaje, detecta que tipo es y lo envía al FSM.
+   - 5. Organiza la cola de eventos (el orden en el que se deben ejecutar los eventos)
+   - 6. El updateLogic asigna los eventos al momento en el que deben ejecutarse (los organiza).
+   - 7. El drawRunning recibe ya los datos y comienza a dibujar en función de lo que recibe.
 
 - ¿Cómo separaste recepción, cola temporal y renderizado?
 
-R/
+R/ La recepción ocurre en el adapter y lo unico que esta realiza es recibir, parsear y normalizar. Luego la cola temporal esta en el updateLogic y este lee si se deben ejecutar. Y el renderizado esta en el drawRunning y lo unico que hace es recibir los eventos y ejecutarlos, no tiene que parsear ni realizar nada más.
 
 - ¿Qué pruebas hiciste para verificar la sincronización?
 
-R/
+R/ Primero probe el programa sin el timestamp y note que iba desincronizado con el audio y se veia muy raro, luego de agregarle el timestamp y de verificar ciertas cosas en el strudel cambiandole los sonidos, se noto inmediatamente que ya se arregló.
 
 - ¿Qué problemas encontraste y cómo los solucionaste?
 
-R/ 
+R/ Se me dificulto organizar el tema de las responsabilidades en los programas para que estos quedaran mas faciles de entender y de corregir, mientras que si estaban mal distribuidos se volvia una nada el codigo y era mas dificil solucionar cualquier tipo de error. Y al inicio antes de yo entender de que manera funcionaba, saber como se debian enviar los datos para que los entendiera el sistema.
 
 ## Bitácora de reflexión
 
@@ -102,7 +108,28 @@ R/
 -- FSM o capa de estado;
 -- Render visual.
 
-R/
+R/ Flujo:
+
+Strudel (eventos musicales)
+        ↓
+StrudelAdapter.js
+  - WebSocketServer (puerto 8080)
+  - JSON.parse
+  - _normalize()
+        ↓
+bridgeServer.js
+        ↓
+bridgeClient.js
+        ↓
+FSMTask
+        ↓
+updateLogic (cola temporal)
+        ↓
+drawRunning (render)
+
+Diagrama:
+
+
   
 - Compara las unidades 4, 5 y 6 en una tabla. Compara al menos:
 
@@ -114,13 +141,23 @@ R/
 -- Papel del tiempo o sincronización.
 -- Explica por qué esta unidad sigue perteneciendo a la misma arquitectura del curso, aunque la fuente de datos ya no sea hardware físico.
 
-R/
+R/ Cuadro: 
+
+| Aspecto |	Unidad 4 | Unidad 5	| Unidad 6 |
+| ------- | -------- | -------- | -------- |
+| Fuente |	Serial (hardware) |	Binario (hardware) |	Strudel (WebSocket) |
+| Formato	| ASCII	| Binario | estructurado	JSON + args |
+| Problema	| Parseo	| Framing	| Sincronización |
+| Validación |	Strings	| Checks de estructura |	_normalize() |
+| Adapter |	ASCII Adapter	| Binario Adapter	| StrudelAdapter |
+| Tiempo	| No clave	| Secundario	| CRÍTICO |
+
+R/ Porque todos los adapters llevan al bridge y vuelven los datos en el mismo lenguaje, entonces independiente de donde se manden siempre van a llegar al frontend de la misma manera. 
 
 - Explica qué decisiones tomaste para traducir eventos musicales en visualidad. Justifica por qué tu mapeo visual tiene sentido.
 
-R/
-
+R/ Los visuales funcionan con todos los datos que envian los sonidos para que estos definan que se muestra, que tanto dura la imagen, y cada cuanto tiempo sale. Por lo tanto cada tipo de sonido esta asignado a formas diferentes y con el valor del delta y del cps para la duración y la velocidad respectivamente.
 
 - Si tuvieras que integrar una tercera aplicación en el futuro, ¿Qué partes de tu arquitectura actual conservarías y cuáles cambiarías?
 
-/R
+R/ Para el sistema mantendria la forma en la que se trabajan los datos en el bridge, y se le podrian implementar nuevas maneras de adapter, o se puede organizar para que reciba de la misma manera. En conclusión mantendría la forma en la que se traducen los datos y le mejoraria la capacidad para recibir datos de varias fuentes o adapters mas elaborados.
